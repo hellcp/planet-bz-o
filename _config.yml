@@ -3,7 +3,7 @@ email: webmaster@bugzilla.org
 description: >-
   Planet openSUSE site providing newest news from the Bugzilla Project
 baseurl: ""
-url: "https://planet.bugzilla.org"
+url: "https://planet-bugzilla.lcp.world"
 
 remote_theme: hellcp/jekyll-theme-bugzilla
 
