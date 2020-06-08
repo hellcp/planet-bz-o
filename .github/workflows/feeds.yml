@@ -26,7 +26,7 @@ jobs:
         entrypoint: bundle
         args: install -j=4
 
-    - name: Fetch the content
+    - name: Run the tests
       uses: docker://ruby:2.7
       env:
         BUNDLE_PATH: .bundle
