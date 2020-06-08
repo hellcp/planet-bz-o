@@ -53,5 +53,6 @@ jobs:
       uses: crazy-max/ghaction-github-pages@v2.0.1
       with:
         build_dir: _site
+        fqdn: planet-bugzilla.lcp.world
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
