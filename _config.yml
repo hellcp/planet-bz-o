@@ -12,4 +12,8 @@ markdown: kramdown
 paginate: 10
 paginate_path: "/page/:num/"
 
+collections:
+  posts:
+    output: false
+
 exclude: [README.md, Gemfile, Gemfile.lock, planet.ini, planet.db, LICENSE, vendor, tests, bin, Rakefile]

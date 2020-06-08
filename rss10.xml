@@ -17,13 +17,13 @@
 
 	<items>
 		<rdf:Seq>
-{% for post in paginator.posts %}
+{% for post in site.posts limit: 10 %}
 			<rdf:li rdf:resource="{{ post.guid }}" />
 {% endfor %}
 		</rdf:Seq>
 	</items>
 </channel>
-{% for post in paginator.posts %}
+{% for post in site.posts limit: 10 %}
 <item rdf:about="{{ post.guid }}">
 	<title>{{ post.title | xml_escape }}</title>
 	<link>{{ post.original_link }}</link>
