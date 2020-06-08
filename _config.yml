@@ -1,0 +1,15 @@
+title: Planet Bugzilla
+email: webmaster@bugzilla.org
+description: >-
+  Planet openSUSE site providing newest news from the Bugzilla Project
+baseurl: ""
+url: "https://planet.bugzilla.org"
+
+remote_theme: hellcp/jekyll-theme-bugzilla
+
+markdown: kramdown
+
+paginate: 10
+paginate_path: "/page/:num/"
+
+exclude: [README.md, Gemfile, Gemfile.lock, planet.ini, planet.db, LICENSE, vendor, tests, bin, Rakefile]

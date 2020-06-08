@@ -1,0 +1,47 @@
+---
+layout: default
+intro: "Read the posts from the Bugzilla contributors"
+meta:
+- type: link
+  tags: rel="alternate" href="https://planet.bugzilla.org/atom.xml" type="application/atom+xml"
+---
+<div class="row flex-row-reverse">
+  <div class="col-lg-4">
+    <div class="card mb-3 d-none d-lg-block">
+      <h6 class="card-header">Feeds</h6>
+      <div class="card-body">
+        <a class="btn btn-primary" href="/rss20.xml">{% include icons/rss.svg size="16" %} RSS 2.0</a>
+        <a class="btn btn-primary" href="/atom.xml">{% include icons/rss.svg size="16" %} Atom</a>
+      </div>
+    </div>
+    <div class="card mb-3 d-none d-lg-block">
+      <ul class="list-group list-group-flush">
+      {% for feed in site.data.planet %}
+        <li class="list-group-item"><a href="{{ feed.link }}">{{ feed.title }}</a> <a href="{{ feed.feed }}">{% include icons/rss.svg size="16" %}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+    <p class="alert alert-primary">{% include icons/twitter.svg size="16" %}You can also follow a number of our contributors (some of whom don't blog) <a href="https://twitter.com/bugzilla/lists/bugzilla-contributors">on Twitter</a>.</p>
+  </div>
+  <div class="col-lg-8">
+    {% for post in paginator.posts %}
+      <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between">
+          <div>
+            <a href="{{ post.link }}">{{ post.author }}</a>
+            <a href="{{ post.rss }}">{% include icons/rss.svg size="16" %}</a>
+            <span class="text-muted">posted on</span>
+            <a class="text-muted" href="{{ post.original_link }}">{{ post.created_at | date_to_string }} </a>
+          </div>
+        </div>
+        <div class="card-body">
+          <a href="{{ post.original_link }}">
+            <h2>{{ post.title }}</h2>
+          </a>
+          {{ post.content }}
+        </div>
+      </div>
+    {% endfor %}
+    {% include pagination.html %}
+  </div>
+</div>

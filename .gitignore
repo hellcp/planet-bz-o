@@ -1,0 +1,9 @@
+.bundle/
+.jekyll-cache/
+.jekyll-metadata
+planet.db
+_posts/
+.sass-cache/
+_site/
+vendor/
+_data/planet.yml

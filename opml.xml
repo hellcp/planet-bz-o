@@ -1,0 +1,17 @@
+---
+---
+<?xml version="1.0"?>
+<opml version="1.1">
+  <head>
+    <title>{{ site.title }}</title>
+    <dateModified>{{ site.time | date_to_rfc822 }}</dateModified>
+    <ownerName>Bugzilla Webmasters</ownerName>
+    <ownerEmail>webmaster@bugzilla.org</ownerEmail>
+  </head>
+  <body>
+    {% for feed in site.data.planet %}
+    <outline type="rss" text="{{ feed.title }}" title="{{ feed.title }}" xmlUrl="{{ feed.feed }}"/>
+    {% endfor %}
+  </body>
+</opml>
+

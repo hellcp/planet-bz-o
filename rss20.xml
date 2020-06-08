@@ -1,0 +1,22 @@
+---
+---
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{ site.title }}</title>
+    <link>{{ site.url }}</link>
+    <language>en</language>
+    <description>{{ site.description }}</description>
+    <atom:link href="{{ site.url }}/rss20.xml" rel="self" type="application/rss+xml"/>
+{% for post in paginator.posts %}
+    <item>
+      <guid isPermaLink="{% if post.guid contains '//' %}true{% else %}false{% endif %}">{{ post.guid }}</guid>
+      <dc:creator>{{ post.author }}</dc:creator>
+      <title>{{ post.title | xml_escape }}</title>
+      <pubDate>{{ post.created_at | date_to_xmlschema }}</pubDate>
+      <link>{{ post.original_link }}</link>
+      <description>{{ post.content | xml_escape }}</description>
+    </item>
+{% endfor %}
+  </channel>
+</rss>
