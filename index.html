@@ -8,33 +8,31 @@ addons:
 - type: css
   link: /assets/css/display.css
 ---
-<div class="row flex-row-reverse">
-  <div class="col-lg-4">
-    <div class="card mb-3 d-none d-lg-block">
-      <h6 class="card-header">Feeds</h6>
-      <div class="card-body">
-        <a class="btn btn-primary" href="/rss20.xml">{% include icons/rss.svg size="16" %} RSS 2.0</a>
-        <a class="btn btn-primary" href="/atom.xml">{% include icons/rss.svg size="16" %} Atom</a>
-      </div>
+<div class="row-inverse">
+  <div class="twenty">
+    <div class="card">
+      <h4 class="title">Feeds</h4>
+      <a class="button primary" href="/rss20.xml">{% include icons/rss.svg size="12" %} RSS 2.0</a>
+      <a class="button primary" href="/atom.xml">{% include icons/rss.svg size="12" %} Atom</a>
     </div>
-    <div class="card mb-3 d-none d-lg-block">
-      <ul class="list-group list-group-flush">
+    <div class="card">
+      <ul>
       {% for feed in site.data.planet %}
-        <li class="list-group-item"><a href="{{ feed.link }}">{{ feed.title }}</a> <a href="{{ feed.feed }}">{% include icons/rss.svg size="16" %}</a></li>
+        <li><a href="{{ feed.link }}">{{ feed.title }}</a> <a href="{{ feed.feed }}">{% include icons/rss.svg size="12" %}</a></li>
       {% endfor %}
       </ul>
     </div>
-    <p class="alert alert-primary">{% include icons/twitter.svg size="16" %}You can also follow a number of our contributors (some of whom don't blog) <a href="https://twitter.com/bugzilla/lists/bugzilla-contributors">on Twitter</a>.</p>
+    <p class="warning">{% include icons/twitter.svg size="16" %}You can also follow a number of our contributors (some of whom don't blog) <a href="https://twitter.com/bugzilla/lists/bugzilla-contributors">on Twitter</a>.</p>
   </div>
-  <div class="col-lg-8">
+  <div class="eighty">
     {% for post in paginator.posts %}
-      <div class="card card-body mb-3">
-        <a class="text-muted" href="{{ post.link }}">{{ post.created_at | date: '%d. %B %Y' }}</a>
-        <h2 class="mb-1">{{ post.title }}</h2>
-        <p class="text-muted">
+      <div class="card">
+        <a class="date muted" href="{{ post.link }}">{{ post.created_at | date: '%d. %B %Y' }}</a>
+        <h2 class="title">{{ post.title }}</h2>
+        <p class="authors muted">
           by
-          <a class="text-muted" href="{{ post.link }}">{{ post.author }}</a>
-          <a class="text-muted" href="{{ post.rss }}">{% include icons/rss.svg size="16" %}</a>
+          <a class="muted" href="{{ post.link }}">{{ post.author }}</a>
+          <a class="muted" href="{{ post.rss }}">{% include icons/rss.svg size="12" %}</a>
         </p>
         {{ post.content }}
       </div>
