@@ -36,10 +36,10 @@ GEM
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
     execjs (2.8.1)
-    faraday (2.5.2)
+    faraday (2.6.0)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.0)
+    faraday-net_http (3.0.1)
     feedfilter (1.1.1)
       textutils (>= 1.0.1)
     feedparser (2.2.0)
@@ -308,7 +308,7 @@ GEM
       faraday (>= 0.17.3, < 3)
     simpleidn (0.2.1)
       unf (~> 0.1.4)
-    sqlite3 (1.5.0-x86_64-linux)
+    sqlite3 (1.5.3-x86_64-linux)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     textutils (1.4.0)
@@ -326,7 +326,7 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (1.8.0)
     webrick (1.7.0)
-    zeitwerk (2.6.0)
+    zeitwerk (2.6.1)
 
 PLATFORMS
   x86_64-linux
