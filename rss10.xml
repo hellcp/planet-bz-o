@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns="http://purl.org/rss/1.0/"
+>
+<channel rdf:about="https://planet-bugzilla.lcp.world">
+	<title>Planet Bugzilla</title>
+	<link>https://planet-bugzilla.lcp.world</link>
+	<description>Planet openSUSE site providing newest news from the Bugzilla Project</description>
+	<atom:link rel="self" href="https://planet-bugzilla.lcp.world/rss10.xml" type="application/rss+xml"/>
+
+	<items>
+		<rdf:Seq>
+
+			<rdf:li rdf:resource="http://dylanhardison.wordpress.com/?p=419" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=375" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=367" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=364" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=362" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=353" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=347" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=345" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=343" />
+
+			<rdf:li rdf:resource="http://dylan.hardison.net/?p=337" />
+
+		</rdf:Seq>
+	</items>
+</channel>
+
+<item rdf:about="http://dylanhardison.wordpress.com/?p=419">
+	<title>Bugzilla Project Updates</title>
+	<link>https://dylan.hardison.net/2020/02/09/bugzilla-project-updates-2020/</link>
+	<content:encoded>&lt;p&gt;As you know, we’re working on two fronts in Bugzilla Development:  &lt;/p&gt;
+
+
+
+
+&lt;p&gt;A quality-of-life release (5.2) which includes support for utf8mb4,&lt;/p&gt;
+
+
+
+
+&lt;p&gt;MySQL 8 compatibility, and compatibility with the latest versions of perl.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;A feature-packed release (6.0) which includes the UX/UI from bugzilla.mozilla.org, based on mojolicious.&lt;/p&gt;
+
+
+
+
+&lt;h2 class=&quot;wp-block-heading&quot;&gt;The 5.2 Update&lt;/h2&gt;
+
+
+
+&lt;p&gt;At the behest of justdave I’ve focused my attention on the quality of life release (5.2). I had desired to be able to release that this week, but this has fallen short because of unforeseen complications.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;Here’s a list of things that &lt;strong&gt;are&lt;/strong&gt; ready in the 5.2 branch:&lt;/p&gt;
+
+
+
+
+&lt;ul&gt;
+	&lt;li&gt;MySQL 8 regexp compatibility (it turns out our default emailregexp wasn’t compatible with MySQL 8)&lt;/li&gt;
+	&lt;li&gt;SQLite works again (sqlite was broken and is untested in the 5.2 branch)&lt;/li&gt;
+	&lt;li&gt;Fixing Safe.pm bug in latest perl (the latest perl has a bug with Safe and Bugzilla must work around it)&lt;/li&gt;
+	&lt;li&gt;checksetup.pl completes and large parts of the code work on MySQL 8&lt;/li&gt;
+	&lt;li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;p&gt;The problems remaining are that it is there are many places where snippets of sql are generated and it is non-obvious where and when to quote them. There are cases where an &lt;code&gt;ORDER BY&lt;/code&gt;must be quoted, for instance.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;Because the patch set to quote all occurrences of is already quite large, I began exploring a more comprehensive fix on February 3rd. This approach is promising, and may result in a bit of reusable code useful to other Perl applications that have forbidden column or table names that used to work.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;At the time of writing, I have written a mysql expression parser that can handle nearly every SQL expression used in Bugzilla. It takes a SQL expression and then quotes all column and table references. While the parser is over 300 lines, it means the overall patch is localized to one new file and a minor change to &lt;code&gt;Bugzilla::DB&lt;/code&gt;. I hope to finish the parser this week, and have the patch in review over the weekend (Feb 8/Feb 9).&lt;/p&gt;
+
+
+
+
+&lt;h2 class=&quot;wp-block-heading&quot;&gt;The 6.0 Update&lt;/h2&gt;
+
+
+
+&lt;p&gt;Since the last meeting, I came up with this (rough) release plan. I’m working on the second version of this, but the gist here is very accurate. We know the “6.0” release will work, because we know bugzilla.mozilla.org works every day. &lt;img src=&quot;//s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/1f642.png&quot; alt=&quot;🙂&quot; class=&quot;wp-smiley&quot; style=&quot;height: 1em; max-height: 1em;&quot;&gt;&lt;/p&gt;
+
+
+
+
+&lt;ul&gt;
+	&lt;li&gt;Delete Mozilla-specific code and branding&lt;br&gt;&lt;ul&gt;
+			&lt;li&gt;The Mozilla logo&lt;/li&gt;
+			&lt;li&gt;Make it so nobody@mozilla.org is not hard-coded anywhere&lt;/li&gt;
+			&lt;li&gt;Remove the &lt;code&gt;Bugzilla::Report::*&lt;/code&gt; classes as those are specific reporting features of BMO that  &lt;/li&gt;
+		&lt;/ul&gt;
+&lt;/li&gt;
+	&lt;li&gt;Ensure a migration (schema migration) is possible from 5.0 to 6.0.&lt;br&gt;&lt;ul&gt;
+			&lt;li&gt;This is mainly a matter of reversing the “multiple aliases” support that was added in 5.0 but is not going to be present in 6.0.&lt;/li&gt;
+			&lt;li&gt;There are complications involving the db schema and how email works that are TBD&lt;/li&gt;
+		&lt;/ul&gt;
+&lt;/li&gt;
+	&lt;li&gt;If possible, some dependencies that are difficult to package (or not maintained well) must be dropped.&lt;br&gt;&lt;ul&gt;
+			&lt;li&gt;Mostly this is &lt;code&gt;Data::Password::passwdqc&lt;/code&gt;. &lt;/li&gt;
+			&lt;li&gt;As we will not add new features, this means forgoing password complexity checks which is actually a good thing as passwdqc rejects perfectly fine randomly generated passwords and people hate it.&lt;/li&gt;
+		&lt;/ul&gt;
+&lt;/li&gt;
+	&lt;li&gt;Validate that we can run against PostgreSQL&lt;/li&gt;
+&lt;/ul&gt;</content:encoded>
+	<dc:date>2020-02-10T01:13:48+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=375">
+	<title>happy bmo push day!</title>
+	<link>https://dylan.hardison.net/2019/04/22/happy-bmo-push-day-23/</link>
+	<content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20190418.1&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1541303&quot; target=&quot;_blank&quot;&gt;1541303&lt;/a&gt;] Default component bug type is not set as expected; enhancement severity is still used for existing bugs&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1543760&quot; target=&quot;_blank&quot;&gt;1543760&lt;/a&gt;] When cloning a bug, the bug is added to ‘Regressed by’ of the new bug&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1543718&quot; target=&quot;_blank&quot;&gt;1543718&lt;/a&gt;] Obsolete attachments should have a strikethrough&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1543798&quot; target=&quot;_blank&quot;&gt;1543798&lt;/a&gt;] Do not treat email addresses with invalid.bugs as unassigned when displaying bugs&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1544304&quot; target=&quot;_blank&quot;&gt;1544304&lt;/a&gt;] Wrong escaping of quotes in attachment titles.&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1541555&quot; target=&quot;_blank&quot;&gt;1541555&lt;/a&gt;] Add facility for requiring an API Key to always come from the same IP address&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1545295&quot; target=&quot;_blank&quot;&gt;1545295&lt;/a&gt;] socorro lens chart for crash statistics blocked by CSP (Blocked by Content Security Policy)&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1543163&quot; target=&quot;_blank&quot;&gt;1543163&lt;/a&gt;] Make Toolkit :: Blocklist Policy Request component private by default&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1545269&quot; target=&quot;_blank&quot;&gt;1545269&lt;/a&gt;] Request for Bug Dependency Graphs return a 404&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2019-04-22T15:59:20+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=367">
+	<title>happy bmo push day!</title>
+	<link>https://dylan.hardison.net/2019/02/22/happy-bmo-push-day-21/</link>
+	<content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20190221.1&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1523317&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1523317&lt;/a&gt;] Exclude Graveyard products from QuickSearch results&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1512815&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1512815&lt;/a&gt;] Optimize Bugzilla-&amp;gt;active_custom_fields() for CPU and memory usage&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1524213&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1524213&lt;/a&gt;] phabricator revisions list on bug page has extra / in the revision link&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1523404&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1523404&lt;/a&gt;] Cannot clear all scopes when editing an oauth2 client. Throws DB error&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1525308&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1525308&lt;/a&gt;] Custom Bug Entry Form for Blocklist Policy Requests&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1525451&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1525451&lt;/a&gt;] Update triage owner report defaults&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1524158&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1524158&lt;/a&gt;] markdown generated by approval comment form could be improved&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1525808&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1525808&lt;/a&gt;] Remove CC changes from activity stream&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1476111&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1476111&lt;/a&gt;] Enable syntax highlighting in comment code blocks&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1528334&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1528334&lt;/a&gt;] Adding image to main bugzilla screen for User Research&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1047539&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1047539&lt;/a&gt;] Bugmails including “See Also” bug links do not include a “Referenced Bugs” section with the summary of the other bug&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1402894&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1402894&lt;/a&gt;] Remove “Restrict this session to this IP” option from login page&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1461492&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1461492&lt;/a&gt;] Add an optional regressed-by field in bugs&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1528277&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;1528277&lt;/a&gt;] Add “Has STR” and “Has Regression Range” fields for the ‘External Software Affecting Firefox’ product&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2019-02-22T18:29:12+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=364">
+	<title>happy bmo push day!</title>
+	<link>https://dylan.hardison.net/2019/01/30/happy-bmo-push-day-20/</link>
+	<content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20190130.1&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1511490&quot; target=&quot;_blank&quot;&gt;1511490&lt;/a&gt;] BMO’s oauth tokens should be use jwt&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1519782&quot; target=&quot;_blank&quot;&gt;1519782&lt;/a&gt;] The OrangeFactor extension should link back to Intermittent Failure View using ‘&amp;amp;tree=all’&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1523004&quot; target=&quot;_blank&quot;&gt;1523004&lt;/a&gt;] Sort Phabricator revisions by numeric value instead of alphabetically&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1523172&quot; target=&quot;_blank&quot;&gt;1523172&lt;/a&gt;] Advanced Search link on home page doesn’t always take me to Advanced Search&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1523365&quot; target=&quot;_blank&quot;&gt;1523365&lt;/a&gt;] Ensure all requests have the HSTS header (if configured)&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1433080&quot; target=&quot;_blank&quot;&gt;1433080&lt;/a&gt;] No longer show the template for tracking &amp;amp; release notes requests&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1522731&quot; target=&quot;_blank&quot;&gt;1522731&lt;/a&gt;] When you click “Update comment”, the button changes size and the “Cancel” button jumps underneath your cursor, causing momentary panic that you canceled your edit&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1512815&quot; target=&quot;_blank&quot;&gt;1512815&lt;/a&gt;] Optimize Bugzilla-&amp;gt;active_custom_fields() for CPU and memory usage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2019-01-31T00:06:22+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=362">
+	<title>happy bmo push day!</title>
+	<link>https://dylan.hardison.net/2019/01/23/happy-bmo-push-day-19/</link>
+	<content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20190123.1&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1511261&quot; target=&quot;_blank&quot;&gt;1511261&lt;/a&gt;] request queue page shows ‘Bugzilla::User=HASH(…)’ instead of username&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1520856&quot; target=&quot;_blank&quot;&gt;1520856&lt;/a&gt;] “Opt out of these emails” at bottom of overdue request nagging emails doesn’t open desired page&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1520011&quot; target=&quot;_blank&quot;&gt;1520011&lt;/a&gt;] Phabbugz panel short description missing&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1518886&quot; target=&quot;_blank&quot;&gt;1518886&lt;/a&gt;] Remove outdated build plan code from PhabBugz extension used to move revisions from draft mode.&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1509329&quot; target=&quot;_blank&quot;&gt;1509329&lt;/a&gt;] Do not display revisions that have moved out of the bug, but note the move in the bug history&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1520533&quot; target=&quot;_blank&quot;&gt;1520533&lt;/a&gt;] Utilize Markdown in uplift form comments&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1521653&quot; target=&quot;_blank&quot;&gt;1521653&lt;/a&gt;] Cannot edit comments after creating or updating an attachment&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1518268&quot; target=&quot;_blank&quot;&gt;1518268&lt;/a&gt;] Re-style all markdown content, consistently&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1520202&quot; target=&quot;_blank&quot;&gt;1520202&lt;/a&gt;] Sometimes the browser can cache the wrong version of an asset&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1517429&quot; target=&quot;_blank&quot;&gt;1517429&lt;/a&gt;] Search: Filter out by default Product containing “Graveyard”&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1512815&quot; target=&quot;_blank&quot;&gt;1512815&lt;/a&gt;] Optimize Bugzilla-&amp;gt;active_custom_fields() for CPU and memory usage&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1520582&quot; target=&quot;_blank&quot;&gt;1520582&lt;/a&gt;] Block ips of users that get too many page errors&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1522155&quot; target=&quot;_blank&quot;&gt;1522155&lt;/a&gt;] Closed bug links don’t get their strike-through&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2019-01-23T22:13:51+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=353">
+	<title>happy bmo push day!</title>
+	<link>https://dylan.hardison.net/2018/10/30/happy-bmo-push-day-17/</link>
+	<content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20181029.1&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1487171&quot; target=&quot;_blank&quot;&gt;1487171&lt;/a&gt;] Allow setting bug flags when creating/updating attachment with API&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1497077&quot; target=&quot;_blank&quot;&gt;1497077&lt;/a&gt;] Convert links, image/iframe sources, form actions to absolute path&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1469733&quot; target=&quot;_blank&quot;&gt;1469733&lt;/a&gt;] Fix scrolling glitch on Safari&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1496057&quot; target=&quot;_blank&quot;&gt;1496057&lt;/a&gt;] Security bugs report october update&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1499905&quot; target=&quot;_blank&quot;&gt;1499905&lt;/a&gt;] Update BMO enter bug workflow to include Data Science&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1370855&quot; target=&quot;_blank&quot;&gt;1370855&lt;/a&gt;] Add a Referrer-Policy response header&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1501893&quot; target=&quot;_blank&quot;&gt;1501893&lt;/a&gt;] Tell robots to leave the graphs alone, and leave a trap&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1501133&quot; target=&quot;_blank&quot;&gt;1501133&lt;/a&gt;] Attachment flags layout on new bug page is broken&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1501888&quot; target=&quot;_blank&quot;&gt;1501888&lt;/a&gt;] Implement Bugzilla::Util::remote_ip() in terms of  Mojolicious API&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1502181&quot; target=&quot;_blank&quot;&gt;1502181&lt;/a&gt;] MockParams should set user/verify authentication classes to match production&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1501849&quot; target=&quot;_blank&quot;&gt;1501849&lt;/a&gt;] Speed up IP blocked page&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1502198&quot; target=&quot;_blank&quot;&gt;1502198&lt;/a&gt;] GitHubAuth cannot be removed from user_info_class in data/params if extension enabled or all logins will no longer work&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1497230&quot; target=&quot;_blank&quot;&gt;1497230&lt;/a&gt;] Several custom form routes are not resolved, leading to 404 page not found, including Trademark Usage Requests&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1502739&quot; target=&quot;_blank&quot;&gt;1502739&lt;/a&gt;] Disabled account doesn’t show any indication on the profile page&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1479535&quot; target=&quot;_blank&quot;&gt;1479535&lt;/a&gt;] BUGZILLA.bug_url is wrong on bug page after POSTed, Copy Summary doesn’t work as expected&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1501966&quot; target=&quot;_blank&quot;&gt;1501966&lt;/a&gt;] Security Bugs Report: Warn when there are outdated products or components in the teams list&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2018-10-30T21:28:46+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=347">
+	<title>happy bmo push day!</title>
+	<link>https://dylan.hardison.net/2018/10/10/happy-bmo-push-day-15/</link>
+	<content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20181010.1&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1496803&quot; target=&quot;_blank&quot;&gt;1496803&lt;/a&gt;] Suggested component links ignore cloned bug data&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1497234&quot; target=&quot;_blank&quot;&gt;1497234&lt;/a&gt;] Remove Personas Plus GitHub link from Custom Bug Entry Forms index&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1497070&quot; target=&quot;_blank&quot;&gt;1497070&lt;/a&gt;] In-page links are broken due to &amp;lt;base href&amp;gt; added during Mojo migration&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1497437&quot; target=&quot;_blank&quot;&gt;1497437&lt;/a&gt;] The crash graph should display Exact Match results by default&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=623384&quot; target=&quot;_blank&quot;&gt;623384&lt;/a&gt;] Use Module::Runtime instead of eval &amp;#123; require } or eval “use”&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1496832&quot; target=&quot;_blank&quot;&gt;1496832&lt;/a&gt;] Add monitoring and preventative measures for feed daemon becoming unresponsive&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1497343&quot; target=&quot;_blank&quot;&gt;1497343&lt;/a&gt;] Add some rudimentary type checking to  Bugzilla::WebServe::Util::validate()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2018-10-10T19:25:13+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=345">
+	<title>happy bmo push day (last friday)</title>
+	<link>https://dylan.hardison.net/2018/10/10/happy-bmo-push-day-last-friday/</link>
+	<content:encoded>&lt;p&gt;(a few things went out on friday because of some API breakage, and didn’t get posted. woops)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20181004.1&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1495349&quot; target=&quot;_blank&quot;&gt;1495349&lt;/a&gt;] Remove Persona extension&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1263502&quot; target=&quot;_blank&quot;&gt;1263502&lt;/a&gt;] Add duplicates to /rest/bug/id&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1495906&quot; target=&quot;_blank&quot;&gt;1495906&lt;/a&gt;] After mojo update /latest/configuration API call no longer works and gives page not found&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1496233&quot; target=&quot;_blank&quot;&gt;1496233&lt;/a&gt;] “Dunno” -&amp;gt; “Don’t know” in approval request form&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1489120&quot; target=&quot;_blank&quot;&gt;1489120&lt;/a&gt;] Add a rest API to get triage owners for each product/component pair&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1495901&quot; target=&quot;_blank&quot;&gt;1495901&lt;/a&gt;] SES type checking error&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1495746&quot; target=&quot;_blank&quot;&gt;1495746&lt;/a&gt;] /app/static/metricsgraphics/css/google-OpenSans.css missing in app container&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1496570&quot; target=&quot;_blank&quot;&gt;1496570&lt;/a&gt;] Bugzilla doesn’t attempt to decode  form-urlencoded data without a content-type header&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1496172&quot; target=&quot;_blank&quot;&gt;1496172&lt;/a&gt;] Attachments with unicode filenames cause timeout errors when retreiving attachments&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2018-10-10T19:23:01+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=343">
+	<title>happy bmo push day – mojolicious edition</title>
+	<link>https://dylan.hardison.net/2018/10/02/happy-bmo-push-day-mojolicious-edition/</link>
+	<content:encoded>&lt;p&gt;As previously announced at &lt;a href=&quot;https://archive.fosdem.org/2018/schedule/event/perl_docker_mozilla/&quot;&gt;FOSDEM 2018&lt;/a&gt; and then &lt;a href=&quot;https://www.youtube.com/watch?v=0jIk3s7GsEo&quot;&gt;re-announced&lt;/a&gt; at &lt;a href=&quot;http://oslo.pm/npw2018/&quot;&gt;MojoConf&lt;/a&gt;, &lt;a href=&quot;https://bugzilla.mozilla.org&quot;&gt;bugzilla.mozilla.org&lt;/a&gt; is now running on &lt;a href=&quot;https://mojolicious.org/&quot;&gt;Mojolicious&lt;/a&gt; “A next generation web framework for the Perl programming language”&lt;/p&gt;
+&lt;p&gt;This release incorporates 28 changes and the Mojolicious migration is the least interesting to the end-user, but it is pretty important in terms of being able to deliver rich experiences moving forward.&lt;/p&gt;
+&lt;p&gt;As an aside, it’s very possible to just download and run bugzilla now,&lt;br&gt;
+and the &lt;a href=&quot;https://github.com/bugzilla/harmony&quot;&gt;Bugzilla Harmony&lt;/a&gt; initiative could use some help cranking out a first release. Interested parties can reach out to me or find us in #bugzilla on irc.mozilla.org&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&quot;more-343&quot;&gt;&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20181002.3&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1455495&quot; target=&quot;_blank&quot;&gt;1455495&lt;/a&gt;] Replace apache with Mojolicious&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1487422&quot; target=&quot;_blank&quot;&gt;1487422&lt;/a&gt;] Remove Phabricator section from MyDashboard and related WebService API&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1490687&quot; target=&quot;_blank&quot;&gt;1490687&lt;/a&gt;] Stop setting r+s on Phabricator attachments&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1490708&quot; target=&quot;_blank&quot;&gt;1490708&lt;/a&gt;] Ensure we always call DBIx::Connector-&amp;gt;dbh before any DBI method&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1491973&quot; target=&quot;_blank&quot;&gt;1491973&lt;/a&gt;] Add GeckoView to BMO::Data special casing&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1345673&quot; target=&quot;_blank&quot;&gt;1345673&lt;/a&gt;] Open Bugzilla History in a New Window or Tab&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1490901&quot; target=&quot;_blank&quot;&gt;1490901&lt;/a&gt;] ReviewBoard stub attachments no longer make a redirect, download a text file instead&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1492850&quot; target=&quot;_blank&quot;&gt;1492850&lt;/a&gt;] Remove places where headers are printed&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1468489&quot; target=&quot;_blank&quot;&gt;1468489&lt;/a&gt;] Documentation points to &lt;a href=&quot;https://landfill.bugzilla.org&quot; rel=&quot;nofollow&quot;&gt;https://landfill.bugzilla.org&lt;/a&gt; that is no longer maintained and will be shut down&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1492511&quot; target=&quot;_blank&quot;&gt;1492511&lt;/a&gt;] Code to updating subscriber values for current private bugs is throwing errors in the phabbugz log&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1470536&quot; target=&quot;_blank&quot;&gt;1470536&lt;/a&gt;] Add new GeckoView product to easy product selector on Browse and Enter Bug pages&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1492346&quot; target=&quot;_blank&quot;&gt;1492346&lt;/a&gt;] scripts/syncflags.pl should also add the target product to any tracking flags that the source product is a member of&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1492926&quot; target=&quot;_blank&quot;&gt;1492926&lt;/a&gt;] Handle DBIx::Connectors more appropriately&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1473417&quot; target=&quot;_blank&quot;&gt;1473417&lt;/a&gt;] Show often/recently used products/components on New Bug page&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1490595&quot; target=&quot;_blank&quot;&gt;1490595&lt;/a&gt;] Bugzilla update check should use https&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1491850&quot; target=&quot;_blank&quot;&gt;1491850&lt;/a&gt;] restoreSavedBugComment takes a really long time (100ms)&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1493295&quot; target=&quot;_blank&quot;&gt;1493295&lt;/a&gt;] Add short URL to each bug&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1494065&quot; target=&quot;_blank&quot;&gt;1494065&lt;/a&gt;] Add a basic test using Test::Mojo&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1489718&quot; target=&quot;_blank&quot;&gt;1489718&lt;/a&gt;] Insert form widgets for approval flag requests instead of free-form comment text&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1493847&quot; target=&quot;_blank&quot;&gt;1493847&lt;/a&gt;] Fix buglist.cgi link label on product/component dropdown lists&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1493500&quot; target=&quot;_blank&quot;&gt;1493500&lt;/a&gt;] Remove all trailing whitespaces from all files&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1493490&quot; target=&quot;_blank&quot;&gt;1493490&lt;/a&gt;] Remove navigator.buildID usage from Bugzilla Helper&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1494645&quot; target=&quot;_blank&quot;&gt;1494645&lt;/a&gt;] Allow customizing HTML &amp;lt;title&amp;gt; of search results&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1421032&quot; target=&quot;_blank&quot;&gt;1421032&lt;/a&gt;] Detect Markdown attachment files as text/plain so Firefox can display the content&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1418378&quot; target=&quot;_blank&quot;&gt;1418378&lt;/a&gt;] Use Material Icons on Bugzilla home page instead of low-res images&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1495071&quot; target=&quot;_blank&quot;&gt;1495071&lt;/a&gt;] Mojolicious Cleanup&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1495834&quot; target=&quot;_blank&quot;&gt;1495834&lt;/a&gt;] xmlrpc.cgi outputs headers in request-body&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1495869&quot; target=&quot;_blank&quot;&gt;1495869&lt;/a&gt;] Crash graph not found after mojo migration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2018-10-03T02:01:30+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+<item rdf:about="http://dylan.hardison.net/?p=337">
+	<title>happy bmo push day!</title>
+	<link>https://dylan.hardison.net/2018/08/08/happy-bmo-push-day-14/</link>
+	<content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/mozilla-bteam/bmo/tree/release-20180807.1&quot;&gt;release tag&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;the following changes have been pushed to bugzilla.mozilla.org:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1479350&quot; target=&quot;_blank&quot;&gt;1479350&lt;/a&gt;] “Phabricator Reviews Requested of You” lists bugs which I have reviewed&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1374266&quot; target=&quot;_blank&quot;&gt;1374266&lt;/a&gt;] Improve the “Zarro Boogs found” message&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1480169&quot; target=&quot;_blank&quot;&gt;1480169&lt;/a&gt;] Consider reducing the verbosity of phabricator ‘Revision Approved’ bugzilla comments&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1478897&quot; target=&quot;_blank&quot;&gt;1478897&lt;/a&gt;] ensure phabbugs doesn’t fail outright when encountering invalid bug ids&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1480599&quot; target=&quot;_blank&quot;&gt;1480599&lt;/a&gt;] Add “File new bug” menu to product/component hovercard&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1481207&quot; target=&quot;_blank&quot;&gt;1481207&lt;/a&gt;] POST /rest/bug_user_last_visit returns random number instead of bug ID&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1446855&quot; target=&quot;_blank&quot;&gt;1446855&lt;/a&gt;] enter_bug.cgi: Searching for duplicate bugs should trigger on changes to the Summary, not on all keystrokes&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1480473&quot; target=&quot;_blank&quot;&gt;1480473&lt;/a&gt;] Component description page: highlighted component lacks padding&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1474809&quot; target=&quot;_blank&quot;&gt;1474809&lt;/a&gt;] add “new to bugzilla” tag to non-comment changes&lt;/li&gt;
+&lt;li&gt;[&lt;a href=&quot;https://bugzilla.mozilla.org/show_bug.cgi?id=1480897&quot; target=&quot;_blank&quot;&gt;1480897&lt;/a&gt;] When making a revision public, make the revision editable only by the bmo-editbugs-team project (editbugs)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;discuss these changes on &lt;a href=&quot;https://lists.mozilla.org/listinfo/tools-bmo&quot; target=&quot;_blank&quot;&gt;mozilla.tools.bmo&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+	<dc:date>2018-08-08T17:13:41+00:00</dc:date>
+	<dc:creator>Dylan Hardison</dc:creator>
+</item>
+
+</rdf:RDF>
+

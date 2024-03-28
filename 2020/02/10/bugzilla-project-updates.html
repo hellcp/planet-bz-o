@@ -1,0 +1,87 @@
+<p>As you know, we’re working on two fronts in Bugzilla Development:  </p>
+
+
+
+
+<p>A quality-of-life release (5.2) which includes support for utf8mb4,</p>
+
+
+
+
+<p>MySQL 8 compatibility, and compatibility with the latest versions of perl.</p>
+
+
+
+
+<p>A feature-packed release (6.0) which includes the UX/UI from bugzilla.mozilla.org, based on mojolicious.</p>
+
+
+
+
+<h2 class="wp-block-heading">The 5.2 Update</h2>
+
+
+
+<p>At the behest of justdave I’ve focused my attention on the quality of life release (5.2). I had desired to be able to release that this week, but this has fallen short because of unforeseen complications.</p>
+
+
+
+
+<p>Here’s a list of things that <strong>are</strong> ready in the 5.2 branch:</p>
+
+
+
+
+<ul>
+	<li>MySQL 8 regexp compatibility (it turns out our default emailregexp wasn’t compatible with MySQL 8)</li>
+	<li>SQLite works again (sqlite was broken and is untested in the 5.2 branch)</li>
+	<li>Fixing Safe.pm bug in latest perl (the latest perl has a bug with Safe and Bugzilla must work around it)</li>
+	<li>checksetup.pl completes and large parts of the code work on MySQL 8</li>
+	<li>
+</ul>
+
+
+
+<p>The problems remaining are that it is there are many places where snippets of sql are generated and it is non-obvious where and when to quote them. There are cases where an <code>ORDER BY</code>must be quoted, for instance.</p>
+
+
+
+
+<p>Because the patch set to quote all occurrences of is already quite large, I began exploring a more comprehensive fix on February 3rd. This approach is promising, and may result in a bit of reusable code useful to other Perl applications that have forbidden column or table names that used to work.</p>
+
+
+
+
+<p>At the time of writing, I have written a mysql expression parser that can handle nearly every SQL expression used in Bugzilla. It takes a SQL expression and then quotes all column and table references. While the parser is over 300 lines, it means the overall patch is localized to one new file and a minor change to <code>Bugzilla::DB</code>. I hope to finish the parser this week, and have the patch in review over the weekend (Feb 8/Feb 9).</p>
+
+
+
+
+<h2 class="wp-block-heading">The 6.0 Update</h2>
+
+
+
+<p>Since the last meeting, I came up with this (rough) release plan. I’m working on the second version of this, but the gist here is very accurate. We know the “6.0” release will work, because we know bugzilla.mozilla.org works every day. <img src="//s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+
+
+
+
+<ul>
+	<li>Delete Mozilla-specific code and branding<br><ul>
+			<li>The Mozilla logo</li>
+			<li>Make it so nobody@mozilla.org is not hard-coded anywhere</li>
+			<li>Remove the <code>Bugzilla::Report::*</code> classes as those are specific reporting features of BMO that  </li>
+		</ul>
+</li>
+	<li>Ensure a migration (schema migration) is possible from 5.0 to 6.0.<br><ul>
+			<li>This is mainly a matter of reversing the “multiple aliases” support that was added in 5.0 but is not going to be present in 6.0.</li>
+			<li>There are complications involving the db schema and how email works that are TBD</li>
+		</ul>
+</li>
+	<li>If possible, some dependencies that are difficult to package (or not maintained well) must be dropped.<br><ul>
+			<li>Mostly this is <code>Data::Password::passwdqc</code>. </li>
+			<li>As we will not add new features, this means forgoing password complexity checks which is actually a good thing as passwdqc rejects perfectly fine randomly generated passwords and people hate it.</li>
+		</ul>
+</li>
+	<li>Validate that we can run against PostgreSQL</li>
+</ul>

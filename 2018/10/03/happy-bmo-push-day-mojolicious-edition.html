@@ -1,0 +1,38 @@
+<p>As previously announced at <a href="https://archive.fosdem.org/2018/schedule/event/perl_docker_mozilla/">FOSDEM 2018</a> and then <a href="https://www.youtube.com/watch?v=0jIk3s7GsEo">re-announced</a> at <a href="http://oslo.pm/npw2018/">MojoConf</a>, <a href="https://bugzilla.mozilla.org">bugzilla.mozilla.org</a> is now running on <a href="https://mojolicious.org/">Mojolicious</a> “A next generation web framework for the Perl programming language”</p>
+<p>This release incorporates 28 changes and the Mojolicious migration is the least interesting to the end-user, but it is pretty important in terms of being able to deliver rich experiences moving forward.</p>
+<p>As an aside, it’s very possible to just download and run bugzilla now,<br>
+and the <a href="https://github.com/bugzilla/harmony">Bugzilla Harmony</a> initiative could use some help cranking out a first release. Interested parties can reach out to me or find us in #bugzilla on irc.mozilla.org</p>
+<h2><span id="more-343"></span></h2>
+<p><a href="https://github.com/mozilla-bteam/bmo/tree/release-20181002.3">release tag</a></p>
+<p>the following changes have been pushed to bugzilla.mozilla.org:</p>
+<ul>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1455495" target="_blank">1455495</a>] Replace apache with Mojolicious</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1487422" target="_blank">1487422</a>] Remove Phabricator section from MyDashboard and related WebService API</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1490687" target="_blank">1490687</a>] Stop setting r+s on Phabricator attachments</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1490708" target="_blank">1490708</a>] Ensure we always call DBIx::Connector-&gt;dbh before any DBI method</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1491973" target="_blank">1491973</a>] Add GeckoView to BMO::Data special casing</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1345673" target="_blank">1345673</a>] Open Bugzilla History in a New Window or Tab</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1490901" target="_blank">1490901</a>] ReviewBoard stub attachments no longer make a redirect, download a text file instead</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1492850" target="_blank">1492850</a>] Remove places where headers are printed</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1468489" target="_blank">1468489</a>] Documentation points to <a href="https://landfill.bugzilla.org" rel="nofollow">https://landfill.bugzilla.org</a> that is no longer maintained and will be shut down</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1492511" target="_blank">1492511</a>] Code to updating subscriber values for current private bugs is throwing errors in the phabbugz log</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1470536" target="_blank">1470536</a>] Add new GeckoView product to easy product selector on Browse and Enter Bug pages</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1492346" target="_blank">1492346</a>] scripts/syncflags.pl should also add the target product to any tracking flags that the source product is a member of</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1492926" target="_blank">1492926</a>] Handle DBIx::Connectors more appropriately</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1473417" target="_blank">1473417</a>] Show often/recently used products/components on New Bug page</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1490595" target="_blank">1490595</a>] Bugzilla update check should use https</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1491850" target="_blank">1491850</a>] restoreSavedBugComment takes a really long time (100ms)</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1493295" target="_blank">1493295</a>] Add short URL to each bug</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1494065" target="_blank">1494065</a>] Add a basic test using Test::Mojo</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1489718" target="_blank">1489718</a>] Insert form widgets for approval flag requests instead of free-form comment text</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1493847" target="_blank">1493847</a>] Fix buglist.cgi link label on product/component dropdown lists</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1493500" target="_blank">1493500</a>] Remove all trailing whitespaces from all files</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1493490" target="_blank">1493490</a>] Remove navigator.buildID usage from Bugzilla Helper</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1494645" target="_blank">1494645</a>] Allow customizing HTML &lt;title&gt; of search results</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1421032" target="_blank">1421032</a>] Detect Markdown attachment files as text/plain so Firefox can display the content</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1418378" target="_blank">1418378</a>] Use Material Icons on Bugzilla home page instead of low-res images</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1495071" target="_blank">1495071</a>] Mojolicious Cleanup</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1495834" target="_blank">1495834</a>] xmlrpc.cgi outputs headers in request-body</li>
+<li>[<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1495869" target="_blank">1495869</a>] Crash graph not found after mojo migration</li>
+</ul>
+<p>discuss these changes on <a href="https://lists.mozilla.org/listinfo/tools-bmo" target="_blank">mozilla.tools.bmo</a>.</p>

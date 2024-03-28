@@ -1,0 +1,33 @@
+<p>One recurring subject on the <a href="https://lists.mozilla.org/listinfo/support-bugzilla" hreflang="en">bugzilla
+support mailing list</a> is the installation of the Perl modules that Bugzilla
+requires to function. When you are installing on a Linux distribution, the
+recommended course of action is to use the packages supplied by the
+distribution. But, on some distributions, these can be of a version lower than
+what is required by Bugzilla.</p>
+<p>One such distribution is <a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux" hreflang="en">RHEL</a>. Version 7 came out in 2014 and its long support life
+cycle make it popular for people to use it as a base for their bugzilla
+instance. Using Bugzilla 4.4 is easy because all Bugzilla's mandatory Perl
+packages are available by default but Bugzilla 5.0 came out after RHEL7 was
+released and a number of Perl modules aren't available or are outdated. Users
+then try to install the missing modules themselves, which is something easy to
+get wrong. I decided to see if this could be made simpler.</p>
+<p>My first step was to see if the modules could be supplied in <a href="https://fedoraproject.org/wiki/EPEL" hreflang="en">EPEL</a>, a third-party
+software repository for RHEL and CentOS but some of the modules concerned are
+in RHEL which makes them impossible to update via EPEL. Another solution is the
+use of Fedora's <a href="https://copr.fedorainfracloud.org/" hreflang="en">COPR</a>, an easy way for Fedora developers to maintain third party
+repositories for Fedora and/or RHEL.</p>
+<p>It took some amount of tweaking to find the package versions that allow you
+to run Bugzilla 5.0.x without replacing RHEL7's entire Perl stack but the end
+result is <a href="https://copr.fedorainfracloud.org/coprs/eseyman/bugzilla-5.0/" hreflang="en">here</a>. Activating a COPR repo is pretty straightforward:</p>
+<ul>
+<li>dnf install dnf-plugins-core</li>
+<li>dnf copr enable eseyman/bugzilla-5.0</li>
+</ul>
+<p>At which point, you can install bugzilla just like any other
+application:</p>
+<ul>
+<li>dnf install bugzilla</li>
+</ul>
+<p>The bugzilla package will be updated everytime a new version of Bugzilla is
+released and its support will end when the Bugzilla developers end support for
+the 5.0 branch.</p>

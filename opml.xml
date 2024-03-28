@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<opml version="1.1">
+  <head>
+    <title>Planet Bugzilla</title>
+    <dateModified>Thu, 28 Mar 2024 00:31:57 +0000</dateModified>
+    <ownerName>Bugzilla Webmasters</ownerName>
+    <ownerEmail>webmaster@bugzilla.org</ownerEmail>
+  </head>
+  <body>
+    
+    <outline type="rss" text="Bugzilla Blog" title="Bugzilla Blog" xmlUrl="https://bugzilla.lcp.world/blog/rss20.xml"/>
+    
+    <outline type="rss" text="Bugzilla Tips" title="Bugzilla Tips" xmlUrl="https://bugzillatips.wordpress.com/feed/atom/"/>
+    
+    <outline type="rss" text="Mark Côté" title="Mark Côté" xmlUrl="https://mrcote.info/categories/bugzilla/index.xml"/>
+    
+    <outline type="rss" text="Dylan Hardison" title="Dylan Hardison" xmlUrl="https://dylan.hardison.net/tag/bugzilla/feed/"/>
+    
+    <outline type="rss" text="Gervase Markham" title="Gervase Markham" xmlUrl="https://blog.gerv.net/category/bugzilla/feed/"/>
+    
+    <outline type="rss" text="David Miller" title="David Miller" xmlUrl="https://www.justdave.net/dave/category/bugzilla/feed/"/>
+    
+    <outline type="rss" text="Emmanuel Seyman" title="Emmanuel Seyman" xmlUrl="https://blog.fedora-fr.org/eseyman/feed/tag/bugzilla/atom"/>
+    
+  </body>
+</opml>
+
