@@ -1,0 +1,12 @@
+<p>A large number of external applications have grown up around Bugzilla
+serving a variety of purposes.  One thing many of these apps have in
+common is a need to get updates from Bugzilla.  Unfortunately, the
+only way to get notifications of changes was, until recently, to poll
+Bugzilla.  Everyone knows that polling is bad, particularly because it
+doesn’t scale well, but until recently there was no alternative.</p>
+<p>Thus I would like to introduce to the world <a href="https://github.com/mozilla/bugzfeed">Bugzfeed</a>, a
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket">WebSocket</a> app that allows you to subscribe to one or more bugs and
+get pushed notifications when they change.  It’s rather a small app,
+based on <a href="http://tornadoweb.org/">Tornado</a>, and has a very simple interface, so it should
+scale quite nicely.  It relies on a few moving parts to work, but I’ll
+start with the basics and explain the whole system later.</p>
