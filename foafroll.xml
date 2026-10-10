@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rss="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <foaf:Group>
+    <foaf:name>Bugzilla Webmasters</foaf:name>
+    <foaf:homepage/>
+
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Bugzilla Blog</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://bugzilla.lcp.world/blog/">
+            <dc:title>Bugzilla Blog</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://bugzilla.lcp.world/blog/rss20.xml"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Bugzilla Tips</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://bugzillatips.wordpress.com">
+            <dc:title>Bugzilla Tips</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://bugzillatips.wordpress.com/feed/atom/"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Mark Côté</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://mrcote.info/categories/bugzilla/">
+            <dc:title>Mark Côté</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://mrcote.info/categories/bugzilla/index.xml"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Dylan Hardison</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://dylan.hardison.net/tag/bugzilla/">
+            <dc:title>Dylan Hardison</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://dylan.hardison.net/tag/bugzilla/feed/"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Gervase Markham</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://blog.gerv.net">
+            <dc:title>Gervase Markham</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://blog.gerv.net/category/bugzilla/feed/"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>David Miller</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://www.justdave.net/dave/">
+            <dc:title>David Miller</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://www.justdave.net/dave/category/bugzilla/feed/"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Emmanuel Seyman</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://blog.fedora-fr.org/eseyman/">
+            <dc:title>Emmanuel Seyman</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://blog.fedora-fr.org/eseyman/feed/tag/bugzilla/atom"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+
+  </foaf:Group>
+</rdf:RDF>
+
