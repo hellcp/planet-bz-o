@@ -1,0 +1,12 @@
+<p>Bugzilla comments are, by default, plain text – so typing &lt;U&gt; will produce less-than, U, greater-than rather than underlined text. However, Bugzilla will automatically make hyperlinks out of certain sorts of text in comments. For example, the text <span class="pre">http:/<span></span>/www.bugzilla.org</span> will be turned into a link: <a class="reference external" href="http://www.bugzilla.org">http://www.bugzilla.org</a>. Other strings which get linkified in the obvious manner are:</p>
+<ul class="simple">
+<li>bug 12345</li>
+<li>comment 7</li>
+<li>bug 23456, comment 53</li>
+<li>attachment 4321</li>
+<li>mailto:george@example.com</li>
+<li>george@example.com</li>
+<li>ftp://ftp.mozilla.org</li>
+</ul>
+<p>A corollary here is that if you type one or more bug numbers in a comment, you should put the word “bug” before each of them, so they gets autolinkified for the convenience of others.</p>
+<p>But also, if you have some text you want linkified in this way, perhaps for use in a blog post, status report, wiki page or other place, you can use the handy <a href="https://bugzilla.mozilla.org/page.cgi?id=linkify.html">linkifier</a>, which will do exactly that for you.</p>
