@@ -1,0 +1,43 @@
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.fourohfour-container {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: 50% calc(100% - 10px);
+  background-image: url("/assets/img/fourohfour-bg.svg");
+  color: black;
+  background-repeat: no-repeat;
+  background-color: #2ec27e;
+}
+
+.fourohfour-search {
+  position: absolute;
+  bottom: 0;
+}
+
+.fourohfour-search * {
+  max-width: 100%;
+  height: auto;
+}
+
+.fourohfour-container span {
+  background-color: black;
+  color: white;
+  padding: 3px;
+  font-size: var(--font-size-large);
+}
+
+.fourohfour-container span a {
+  color: #33d17a !important;
+}
+
+.fourohfour-container .inner {
+  position: relative;
+}
